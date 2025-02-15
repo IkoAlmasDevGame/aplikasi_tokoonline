@@ -129,6 +129,39 @@ class Pengguna_model
         }
     }
 
+    public function setforgetPassword($new_password_verify, $id)
+    {
+        $new_password = md5(htmlspecialchars($_POST['new_password']), false);
+        $old_password = htmlspecialchars(md5($_POST['old_password']), false);
+        $new_password_verify = md5(htmlspecialchars($_POST['new_password_verify']), false);
+        $id = htmlspecialchars($_POST['id_pelanggan']);
+
+        $berhasil = "Anda berhasil mengubah password lama menjadi password baru.";
+        $gagal = "Anda gagal mengubah passowrd lama anda menjadi password baru.";
+
+        $mysql = $this->db->query("SELECT * FROM $this->table WHERE id_pelanggan = '$id'");
+        $row = mysqli_fetch_array($mysql);
+
+        if (password_verify($old_password, PASSWORD_DEFAULT) == md5($row['password'], false)) {
+            return true;
+        }
+
+        # change password yang terbaru ...
+        if ($new_password == $new_password_verify) {
+            $SQL = "UPDATE $this->table SET password = '$new_password_verify' WHERE id_pelanggan = '$id'";
+            $data = $this->db->query($SQL);
+            if ($data != "") {
+                if ($data) {
+                    echo "<script>alert('$berhasil');</script>";
+                    return true;
+                }
+            } else {
+                echo "<script>alert('$gagal');</script>";
+                return false;
+            }
+        }
+    }
+
     public function setEditPassword($new_password, $id)
     {
         $new_password = md5(htmlspecialchars($_POST['new_password']), false);

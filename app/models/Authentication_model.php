@@ -76,7 +76,6 @@ class Authentication_model
                         $_SESSION['pelanggan'] = $row['id_pelanggan '];
                         $_SESSION['pelanggan_email'] = $row['email_pelanggan'];
                         $_SESSION['pelanggan_nama'] = $row['nama_pelanggan'];
-                        $_SESSION['pelanggan_nama'] = $row['nama_pelanggan'];
                         $_SESSION['telepon'] = $row['telepon'];
                         $_SESSION['alamat'] = $row['alamat_pelanggan'];
                         $_SESSION['akses'] = "pelanggan";

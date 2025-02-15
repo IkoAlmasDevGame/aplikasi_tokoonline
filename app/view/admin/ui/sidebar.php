@@ -6,170 +6,169 @@ if ($_SESSION['akses'] == "") {
 ?>
 
 <?php if ($_SESSION['akses'] == "admin"): ?>
-    <?php
+<?php
     $baseFiles = $koneksi->query("SELECT * FROM admin WHERE id_admin = '$_SESSION[admin]'");
     $baseFile = mysqli_fetch_array($baseFiles);
     ?>
-    <!-- ======= Header ======= -->
-    <header id="header" class="header fixed-top d-flex align-items-center" style="position:fixed">
-        <div class="d-flex align-items-center justify-content-between">
-            <a href="" role="button" class="d-flex align-items-center fs-5 fst-normal fw-semibold">
-                <img src="<?= BASE_URL ?>assets/foto_icon/<?= $row['foto_icon'] ?>" width="100" height="100"
-                    alt="<?php echo $row['nama_website'] ?>">
-                <div hidden><?php echo "$row[nama_website]"; ?></div>
-            </a>
-            <i class="bi bi-list toggle-sidebar-btn mx-5 mx-lg-5"></i>
-        </div><!-- End Logo -->
+<!-- ======= Header ======= -->
+<header id="header" class="header fixed-top d-flex align-items-center" style="position:fixed">
+   <div class="d-flex align-items-center justify-content-between">
+      <a href="" role="button" class="d-flex align-items-center fs-5 fst-normal fw-semibold">
+         <img src="<?= BASE_URL ?>assets/foto_icon/<?= $row['foto_icon'] ?>" width="100" height="100"
+            alt="<?php echo $row['nama_website'] ?>">
+         <div hidden><?php echo "$row[nama_website]"; ?></div>
+      </a>
+      <i class="bi bi-list toggle-sidebar-btn mx-5 mx-lg-5"></i>
+   </div><!-- End Logo -->
 
-        <nav class="header-nav ms-auto mx-3">
-            <ul class="d-flex justify-content-center align-items-center mx-auto">
-                <li class="nav-item dropdown pe-3">
-                    <a class="nav-link d-flex align-items-center pe-0" href="#" role="button" data-bs-toggle="dropdown"
-                        aria-controls="dropdown">
-                        <i class="fa fa-regular fa-calendar fa-2x"></i>
-                        <span class="d-none d-md-block dropdown-toggle ps-2"></span>
-                    </a>
-                    <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
-                        <?php require_once("../ui/calendar.php") ?>
-                    </ul>
-                </li>
-                <li class="nav-item dropdown pe-4">
-                    <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" role="button"
-                        data-bs-toggle="dropdown" aria-controls="dropdown">
-                        <?php $dir = __DIR__ . "../../../../assets/default/user_logo.png"; ?>
-                        <?php if ($baseFile['foto_admin'] != $dir) { ?>
-                            <img src="../../../../assets/foto/<?= $baseFile['foto_admin'] ?>" class="img-responsive rounded-2"
-                                style="width: 25px; max-width: 100%;" alt="<?= $baseFile['foto_admin'] ?>">
-                        <?php } else { ?>
-                            <img src="<?php echo $dir; ?>" class="img-responsive rounded-2"
-                                style="width: 25px; max-width: 100%;" alt="user_logo.png">
-                        <?php } ?>
-                        <span class="d-none d-md-block dropdown-toggle ps-2"></span>
-                    </a>
-                    <!-- End Profile Iamge Icon -->
-                    <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
-                        <li class="dropdown-header">
-                            <h4 class="fs-6 fw-normal text-start text-dark">
-                                <div class="form-inline row justify-content-start align-items-start flex-wrap my-2">
-                                    <div class="col-sm-4 col-md-4">
-                                        <label for="">username</label>
-                                    </div>
-                                    <div class="col-sm-1 col-md-1">:</div>
-                                    <div class="col-sm-6 col-md-6">
-                                        <?php echo $baseFile['username']; ?>
-                                    </div>
-                                </div>
-                            </h4>
-                            <hr class="dropdown-divider">
-                            <h4 class="fs-6 fw-normal text-start text-dark">
-                                <div class="form-inline row justify-content-start align-items-start flex-wrap my-2">
-                                    <div class="col-sm-4 col-md-4">
-                                        <label for="">nama profile</label>
-                                    </div>
-                                    <div class="col-sm-1 col-md-1">:</div>
-                                    <div class="col-sm-6 col-md-6">
-                                        <?php echo $baseFile['nama_lengkap']; ?>
-                                    </div>
-                                </div>
-                            </h4>
-                            <hr class="dropdown-divider">
-                            <h4 class="fs-6 fw-normal text-start text-dark">
-                                <div class="form-inline row justify-content-start align-items-start flex-wrap my-2">
-                                    <div class="col-sm-4 col-md-4">
-                                        <label for="">Jabatan</label>
-                                    </div>
-                                    <div class="col-sm-1 col-md-1">:</div>
-                                    <div class="col-sm-6 col-md-6">
-                                        <?php echo $_SESSION['akses'] ?>
-                                    </div>
-                                </div>
-                            </h4>
-                            <hr class="dropdown-divider my-2">
-                            <div class="text-center">
-                                <a href="?page=setting&id_setting=1" class="btn btn-sm btn-success mx-2">
-                                    <i class="fas fa-fw fa-building fa-1x"></i>
-                                    Website Setting
-                                </a>
-                                <a href="?page=profile&id_admin=<?= $_SESSION['admin'] ?>" class="btn btn-sm btn-info mx-2">
-                                    <i class="fas fa-fw fa-user fa-1x"></i>
-                                    Profile
-                                </a>
-                                <a href="?page=logout"
-                                    onclick="return confirm('Apakah anda ingin keluar dari website ini ?')"
-                                    aria-current="page" class="btn btn-sm btn-danger mx-1">
-                                    <i class="fas fa-fw fa-sign-out-alt fa-1x"></i>
-                                    Log Out
-                                </a>
-                            </div>
-                        </li>
-                    </ul><!-- End Profile Dropdown Items -->
-                </li><!-- End Profile Nav -->
+   <nav class="header-nav ms-auto mx-3">
+      <ul class="d-flex justify-content-center align-items-center mx-auto">
+         <li class="nav-item dropdown pe-3">
+            <a class="nav-link d-flex align-items-center pe-0" href="#" role="button" data-bs-toggle="dropdown"
+               aria-controls="dropdown">
+               <i class="fa fa-regular fa-calendar fa-2x"></i>
+               <span class="d-none d-md-block dropdown-toggle ps-2"></span>
+            </a>
+            <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
+               <?php require_once("../ui/calendar.php") ?>
             </ul>
-        </nav><!-- End Icons Navigation -->
-    </header>
-    <!-- ======= Header ======= -->
-    <!-- ======= Sidebar ======= -->
-    <aside id="sidebar" style="background: rgba(100, 107, 107, 1);" class="sidebar">
-        <ul class="sidebar-nav" id="sidebar-nav">
-            <li class="nav-item">
-                <a href="?page=beranda" aria-current="page" class="nav-link collapsed">
-                    <i class="fas fa-tachometer-alt fa-1x"></i>
-                    <div class="fs-4 display-5 text-dark fw-normal">Dashboard</div>
-                </a>
-            </li>
-            <div class="my-3 border border-top"></div>
-            <li class="nav-item">
-                <a href="?page=kategori" aria-current="page" class="nav-link collapsed">
-                    <i class="fas fa-book fa-1x"></i>
-                    <div class="fs-4 display-5 text-dark fw-normal">Kategori</div>
-                </a>
-            </li>
-            <div class="my-3 border border-top"></div>
-            <li class="nav-item">
-                <a href="?page=produk" aria-current="page" class="nav-link collapsed">
-                    <i class="fas fa-gifts fa-1x"></i>
-                    <div class="fs-4 display-5 text-dark fw-normal">Produk</div>
-                </a>
-            </li>
-            <div class="my-3 border border-top"></div>
-            <li class="nav-item">
-                <a href="?page=pembelian" aria-current="page" class="nav-link collapsed">
-                    <i class="fas fa-shopping-cart fa-1x"></i>
-                    <div class="fs-4 display-5 text-dark fw-normal">Pembelian</div>
-                </a>
-            </li>
-            <div class="my-3 border border-top"></div>
-            <li class="nav-item">
-                <a href="?page=laporan" aria-current="page" class="nav-link collapsed">
-                    <i class="fas fa-file fa-1x"></i>
-                    <div class="fs-4 display-5 text-dark fw-normal">Laporan</div>
-                </a>
-            </li>
-            <div class="my-3 border border-top"></div>
-            <li class="nav-item">
-                <a href="?page=pelanggan" aria-current="page" class="nav-link collapsed">
-                    <i class="fas fa-user fa-1x"></i>
-                    <div class="fs-4 display-5 text-dark fw-normal">Pelanggan</div>
-                </a>
-            </li>
-        </ul>
-    </aside>
-    <!-- ======= Sidebar ======= -->
-    <main id="main" class="main">
-        <section class="section dashboard">
+         </li>
+         <li class="nav-item dropdown pe-4">
+            <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" role="button"
+               data-bs-toggle="dropdown" aria-controls="dropdown">
+               <?php $dir = __DIR__ . "../../../../assets/default/user_logo.png"; ?>
+               <?php if ($baseFile['foto_admin'] != $dir) { ?>
+               <img src="../../../../assets/foto/<?= $baseFile['foto_admin'] ?>" class="img-responsive rounded-2"
+                  style="width: 25px; max-width: 100%;" alt="<?= $baseFile['foto_admin'] ?>">
+               <?php } else { ?>
+               <img src="<?php echo $dir; ?>" class="img-responsive rounded-2" style="width: 25px; max-width: 100%;"
+                  alt="user_logo.png">
+               <?php } ?>
+               <span class="d-none d-md-block dropdown-toggle ps-2"></span>
+            </a>
+            <!-- End Profile Iamge Icon -->
+            <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
+               <li class="dropdown-header">
+                  <h4 class="fs-6 fw-normal text-start text-dark">
+                     <div class="form-inline row justify-content-start align-items-start flex-wrap my-2">
+                        <div class="col-sm-4 col-md-4">
+                           <label for="">username</label>
+                        </div>
+                        <div class="col-sm-1 col-md-1">:</div>
+                        <div class="col-sm-6 col-md-6">
+                           <?php echo $baseFile['username']; ?>
+                        </div>
+                     </div>
+                  </h4>
+                  <hr class="dropdown-divider">
+                  <h4 class="fs-6 fw-normal text-start text-dark">
+                     <div class="form-inline row justify-content-start align-items-start flex-wrap my-2">
+                        <div class="col-sm-4 col-md-4">
+                           <label for="">nama profile</label>
+                        </div>
+                        <div class="col-sm-1 col-md-1">:</div>
+                        <div class="col-sm-6 col-md-6">
+                           <?php echo $baseFile['nama_lengkap']; ?>
+                        </div>
+                     </div>
+                  </h4>
+                  <hr class="dropdown-divider">
+                  <h4 class="fs-6 fw-normal text-start text-dark">
+                     <div class="form-inline row justify-content-start align-items-start flex-wrap my-2">
+                        <div class="col-sm-4 col-md-4">
+                           <label for="">Jabatan</label>
+                        </div>
+                        <div class="col-sm-1 col-md-1">:</div>
+                        <div class="col-sm-6 col-md-6">
+                           <?php echo $_SESSION['akses'] ?>
+                        </div>
+                     </div>
+                  </h4>
+                  <hr class="dropdown-divider my-2">
+                  <div class="text-center">
+                     <a href="?page=setting&id_setting=1" class="btn btn-sm btn-success mx-2">
+                        <i class="fas fa-fw fa-building fa-1x"></i>
+                        Website Setting
+                     </a>
+                     <a href="?page=profile&id_admin=<?= $_SESSION['admin'] ?>" class="btn btn-sm btn-info mx-2">
+                        <i class="fas fa-fw fa-user fa-1x"></i>
+                        Profile
+                     </a>
+                     <a href="?page=logout" onclick="return confirm('Apakah anda ingin keluar dari website ini ?')"
+                        aria-current="page" class="btn btn-sm btn-danger mx-1">
+                        <i class="fas fa-fw fa-sign-out-alt fa-1x"></i>
+                        Log Out
+                     </a>
+                  </div>
+               </li>
+            </ul><!-- End Profile Dropdown Items -->
+         </li><!-- End Profile Nav -->
+      </ul>
+   </nav><!-- End Icons Navigation -->
+</header>
+<!-- ======= Header ======= -->
+<!-- ======= Sidebar ======= -->
+<aside id="sidebar" style="background: rgba(100, 107, 107, 1);" class="sidebar">
+   <ul class="sidebar-nav" id="sidebar-nav">
+      <li class="nav-item">
+         <a href="?page=beranda" aria-current="page" class="nav-link collapsed">
+            <i class="fas fa-tachometer-alt fa-1x"></i>
+            <div class="fs-4 display-5 text-dark fw-normal">Dashboard</div>
+         </a>
+      </li>
+      <div class="my-3 border border-top"></div>
+      <li class="nav-item">
+         <a href="?page=kategori" aria-current="page" class="nav-link collapsed">
+            <i class="fas fa-book fa-1x"></i>
+            <div class="fs-4 display-5 text-dark fw-normal">Kategori</div>
+         </a>
+      </li>
+      <div class="my-3 border border-top"></div>
+      <li class="nav-item">
+         <a href="?page=produk" aria-current="page" class="nav-link collapsed">
+            <i class="fas fa-gifts fa-1x"></i>
+            <div class="fs-4 display-5 text-dark fw-normal">Produk</div>
+         </a>
+      </li>
+      <div class="my-3 border border-top"></div>
+      <li class="nav-item">
+         <a href="?page=pembelian" aria-current="page" class="nav-link collapsed">
+            <i class="fas fa-shopping-cart fa-1x"></i>
+            <div class="fs-4 display-5 text-dark fw-normal">Pembelian</div>
+         </a>
+      </li>
+      <div class="my-3 border border-top"></div>
+      <li class="nav-item">
+         <a href="?page=laporan" aria-current="page" class="nav-link collapsed">
+            <i class="fas fa-file fa-1x"></i>
+            <div class="fs-4 display-5 text-dark fw-normal">Laporan</div>
+         </a>
+      </li>
+      <div class="my-3 border border-top"></div>
+      <li class="nav-item">
+         <a href="?page=pelanggan" aria-current="page" class="nav-link collapsed">
+            <i class="fas fa-user fa-1x"></i>
+            <div class="fs-4 display-5 text-dark fw-normal">Pelanggan</div>
+         </a>
+      </li>
+   </ul>
+</aside>
+<!-- ======= Sidebar ======= -->
+<main id="main" class="main">
+   <section class="section dashboard">
+      <div class="row">
+
+         <!-- Left side columns -->
+         <div class="col-lg-8">
             <div class="row">
 
-                <!-- Left side columns -->
-                <div class="col-lg-8">
-                    <div class="row">
-
-                    </div>
-
-                </div><!-- End Right side columns -->
-
             </div>
-        </section>
-    <?php else: ?>
-        <?php header("location:../../index.php"); ?>
-        <?php exit(0); ?>
-    <?php endif; ?>
+
+         </div><!-- End Right side columns -->
+
+      </div>
+   </section>
+   <?php else: ?>
+   <?php header("location:../../index.php"); ?>
+   <?php exit(0); ?>
+   <?php endif; ?>

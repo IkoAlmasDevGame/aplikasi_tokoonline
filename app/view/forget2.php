@@ -4,11 +4,26 @@
    <head>
       <meta charset="UTF-8">
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
-      <title>Forget Password</title>
+      <title>Forget Password 2</title>
       <?php require_once("../init.php"); ?>
       <?php require_once("../models/Setting_model.php"); ?>
       <?php require_once("../controllers/Setting.php"); ?>
+      <?php require_once("../models/Pengguna_model.php"); ?>
+      <?php require_once("../controllers/Pengguna.php"); ?>
       <?php $data = new controller\Setting($koneksi); ?>
+      <?php $pengguna = new controller\Pengguna($koneksi); ?>
+      <?php if (!isset($_GET['aksi'])) {
+   } else {
+      switch ($_GET['aksi']) {
+         case 'forget-2':
+            $pengguna->forgetpassword();
+            break;
+
+         default:
+            # code...
+            break;
+      }
+   } ?>
       <?php $result = $data->BySettingData(); ?>
       <?php foreach ($result as $website): ?>
       <title><?php echo $website['nama_website'] . " - Forget Password"; ?></title>
@@ -25,32 +40,24 @@
       </script>
       <script crossorigin="anonymous" src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
       <!-- Javascript Finish -->
-      <?php if (!isset($_GET['aksi'])): ?>
-      <?php else: ?>
       <?php
-      switch ($_GET['aksi']) {
-         case 'forget':
-            if (isset($_POST['submit'])):
-               $email = htmlspecialchars($_POST['email']);
-               $hasil = $_POST['angka1'] + $_POST['angka2'];
-               if ($hasil == $_POST['hasil']) {
-                  $halaman = URL_BASE . "forget2.php?email=$email";
-                  echo "<script>document.location.href = '$halaman';</script>";
-                  die;
-               } else {
-                  unset($_POST['hasil']);
-                  header("location:forget.php");
-                  exit(0);
-               }
-            endif;
-            break;
+   if (!isset($_GET['email'])):
+      echo "<script>alert('Email tidak ditemukan.');</script>";
+      echo "<script>document.location.href = 'forget.php'</script>";
+   endif;
 
-         default:
-            # code...
-            break;
-      }
-      ?>
-      <?php endif; ?>
+   $email_pelanggan = $_GET['email'];
+   // Mengambil data pembayaran berdasarkan ID pembelian
+   $stmt = $koneksi->query("SELECT * FROM pelanggan WHERE email_pelanggan = '$email_pelanggan'");
+   $isi = $stmt->fetch_assoc();
+
+   if (!$isi) {
+      echo "<script>alert('Data Email tidak ditemukan untuk pelanggan.')</script>";
+      $halaman = URL_BASE . "forget.php";
+      echo "<script>document.location.href = '$halaman';</script>";
+      die;
+   }
+   ?>
    </head>
 
    <body onload="startTime()" class="bg-secondary">
@@ -103,40 +110,51 @@
                </h4>
             </div>
             <div class="card-body my-2">
-               <form action="?aksi=forget" class="form-group" method="post" aria-required="TRUE">
+               <form action="?aksi=forget-2" class="form-group" method="post" aria-required="TRUE">
+                  <input type="hidden" name="id_pelanggan" value="<?= $isi['id_pelanggan'] ?>">
                   <div class="form-inline my-2">
-                     <div class="row justify-content-start align-items-start flex-wrap">
-                        <div class="form-label col-sm col-sm-4 col-md col-md-4">
-                           <label for="">email</label>
+                     <div class="row justify-content-center align-items-center flex-wrap">
+                        <div class="form-label col-sm-4 col-md-4 fs-5 display-4 fst-times">
+                           <label for="old_password" class="label label-default">Old
+                              Password</label>
                         </div>
-                        <div class="col-sm col-sm-7">
-                           <input type="email" name="email" class="form-control" placeholder="masukkan email anda ..."
-                              id="">
+                        <div class="col-sm-1 col-md-1">:</div>
+                        <div class="col-sm-6 col-md-6">
+                           <input type="password" placeholder="masukkan password lama ..." class="form-control"
+                              name="old_password" value="" required id="old_password" aria-required="TRUE">
                         </div>
                      </div>
                   </div>
                   <div class="form-inline my-2">
-                     <div class="row justify-content-start align-items-start flex-wrap">
-                        <div class="form-label col-sm-4 col-md-4">
-                           <input type="hidden" name="angka1" value="<?= $angka1 ?>">
-                           <input type="hidden" name="angka2" value="<?= $angka2 ?>">
-                           <label for="" class="label label-default">
-                              <?php echo $angka1 . " + " . $angka2; ?> = ?</label>
+                     <div class="row justify-content-center align-items-center flex-wrap">
+                        <div class="form-label col-sm-4 col-md-4 fs-5 display-4 fst-times">
+                           <label for="new_password" class="label label-default">Password</label>
                         </div>
-                        <div class="col-sm-7 col-md-7">
-                           <input type="number" class="form-control" aria-required="TRUE" name="hasil"
-                              placeholder="Capthca" required>
+                        <div class="col-sm-1 col-md-1">:</div>
+                        <div class="col-sm-6 col-md-6">
+                           <input type="password" placeholder="masukkan password baru ..." class="form-control"
+                              name="new_password" value="" required id="new_password" aria-required="TRUE">
+                        </div>
+                     </div>
+                  </div>
+                  <div class="form-inline my-2">
+                     <div class="row justify-content-center align-items-center flex-wrap">
+                        <div class="form-label col-sm-4 col-md-4 fs-5 display-4 fst-times">
+                           <label for="new_password_verify" class="label label-default">Password
+                              Verify</label>
+                        </div>
+                        <div class="col-sm-1 col-md-1">:</div>
+                        <div class="col-sm-6 col-md-6">
+                           <input type="password" placeholder="ulangi password baru anda ..." class="form-control"
+                              name="new_password_verify" value="" required id="new_password_verify"
+                              aria-required="TRUE">
                         </div>
                      </div>
                   </div>
                   <div class="form-inline my-1">
                      <div class="card-footer text-center">
-                        <button type="submit" class="btn btn-primary" name="submit">
-                           Forget Password
-                        </button>
-                        <button type="reset" class="btn btn-danger">
-                           <i class="fa fa-eraser fa-1x"></i>
-                           HAPUS
+                        <button type="submit" class="btn btn-primary">
+                           Done Forget
                         </button>
                      </div>
                   </div>

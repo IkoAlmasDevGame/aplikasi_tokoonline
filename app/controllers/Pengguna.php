@@ -66,6 +66,20 @@ class Pengguna
         endif;
     }
 
+    public function forgetpassword()
+    {
+        $new_password_verify = md5(htmlspecialchars($_POST['new_password_verify']), false);
+        $email = htmlspecialchars($_POST['id_pelanggan']);
+        $data = $this->konfig->setforgetPassword($new_password_verify, $email);
+        if ($data === true):
+            echo "<script>document.location.href = 'index.php';</script>";
+            die;
+        else:
+            echo "<script>document.location.href = 'forget.php';</script>";
+            die;
+        endif;
+    }
+
     public function editpassword()
     {
         if (isset($_POST['submitPassword'])) {
