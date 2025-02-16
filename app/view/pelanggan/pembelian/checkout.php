@@ -46,7 +46,7 @@
                   <div class="card shadow mb-3">
                      <div class="card-header py-3">
                         <h4 class="card-title display-4 fst-normal fw-normal fs-4">
-                           <?php echo $_SESSION['pelanggan_nama'] . " - List Checkout"; ?>
+                           <?php echo $_SESSION['nama_pelanggan'] . " - List Checkout"; ?>
                         </h4>
                      </div>
                      <div class="card-body my-2">

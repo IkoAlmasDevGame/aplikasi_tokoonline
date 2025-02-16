@@ -42,10 +42,10 @@ class Pengguna
             $id = htmlspecialchars($_POST['id_pelanggan']);
             $data = $this->konfig->setEditPengguna($email, $nama, $telepon, $alamat, $id);
             if ($data === true):
-                echo "<script>document.location.href = '../ui/header.php?page=user-profile&pelanggan=$id';</script>";
+                echo "<script>document.location.href = '../ui/header.php?page=profile&id_pelanggan=$id';</script>";
                 die;
             else:
-                echo "<script>document.location.href = '../ui/header.php?page=user-profile&pelanggan=$id&data=$id';</script>";
+                echo "<script>document.location.href = '../ui/header.php?page=profile&id_pelanggan=$id&data=$id';</script>";
                 die;
             endif;
         }

@@ -129,6 +129,12 @@ class Pengguna_model
         }
     }
 
+    public function edit($id_adm)
+    {
+        $SQL = "SELECT * FROM $this->table WHERE id_pelanggan = '$id_adm'";
+        return $this->db->query($SQL);
+    }
+
     public function setforgetPassword($new_password_verify, $id)
     {
         $new_password = md5(htmlspecialchars($_POST['new_password']), false);
@@ -173,7 +179,7 @@ class Pengguna_model
         $row = mysqli_fetch_array($mysql);
         # cek update password
         if (password_verify($old_password, PASSWORD_DEFAULT) == md5($row['password'], false)) {
-            header("location:../ui/header.php?page=user-profile&pelanggan=$id&change=$id");
+            header("location:../ui/header.php?page=profile&id_pelanggan=$id&change=$id");
             exit(0);
         }
 

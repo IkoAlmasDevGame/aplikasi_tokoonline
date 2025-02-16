@@ -51,6 +51,7 @@ $category = new model\Kategori_model($koneksi);
 $pelanggan = new model\Pengguna_model($koneksi);
 $pembelian = new model\Pembelian_model($koneksi);
 $pembayaran = new model\Pembayaran_model($koneksi);
+$users = new model\Pengguna_model($koneksi);
 # $adm = new model\Admin_model($koneksi);
 # Folder Controller
 require_once("../../../controllers/Authentication.php");
@@ -118,6 +119,11 @@ if (!isset($_GET['page'])) {
             require_once("../pembelian/lihat_pembayaran.php");
             break;
 
+        case 'profile':
+            $judul = $row['nama_website'] . " - Profile";
+            require_once("../profile/edit.php");
+            break;
+
         case 'logout':
             if (isset($_SESSION['status'])) {
                 unset($_SESSION['status']);
@@ -152,6 +158,14 @@ if (!isset($_GET['aksi'])) {
             unset($_SESSION["keranjang"][$id_produk]);
             echo "<script>alert('Produk Telah Dihapus');</script>";
             echo "<script>location='?page=keranjang';</script>";
+            break;
+
+        case 'perbarui-profile':
+            $files->setEdit();
+            break;
+
+        case 'perbarui-password':
+            $files->editpassword();
             break;
 
         default:
