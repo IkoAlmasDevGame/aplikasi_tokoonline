@@ -6,9 +6,9 @@ $setting = $koneksi->query($SQL);
 $row = mysqli_fetch_array($setting);
 # session
 if (isset($_SESSION['status'])) {
-    if (isset($_SESSION['pelanggan'])) {
+    if (isset($_SESSION['id_pelanggan'])) {
         if (isset($_SESSION['pelanggan_email'])) {
-            if (isset($_SESSION['pelanggan_nama'])) {
+            if (isset($_SESSION['nama_pelanggan'])) {
                 if (isset($_SESSION['telepon'])) {
                     if (isset($_SESSION['akses'])) {
                         if (isset($_COOKIE['cookies'])) {
@@ -78,6 +78,46 @@ if (!isset($_GET['page'])) {
             require_once("../dashboard/index.php");
             break;
 
+        case 'beli':
+            $judul = $row['nama_website'] . " - Beli Produk";
+            require_once("../pembelian/beli.php");
+            break;
+
+        case 'detail':
+            $judul = $row['nama_website'] . " - Detail Produk";
+            require_once("../pembelian/detail.php");
+            break;
+
+        case 'keranjang':
+            $judul = $row['nama_website'] . " - Keranjang Produk";
+            require_once("../pembelian/keranjang.php");
+            break;
+
+        case 'checkout':
+            $judul = $row['nama_website'] . " - Checkout Keranjang";
+            require_once("../pembelian/checkout.php");
+            break;
+
+        case 'nota':
+            $judul = $row['nama_website'] . " - Nota Keranjang";
+            require_once("../pembelian/nota.php");
+            break;
+
+        case 'pembayaran':
+            $judul = $row['nama_website'] . " - pembayaran keranjang";
+            require_once("../pembelian/pembayaran.php");
+            break;
+
+        case 'riwayat':
+            $judul = $row['nama_website'] . " - Riwayat";
+            require_once("../histori/riwayat.php");
+            break;
+
+        case 'lihat_pembayaran':
+            $judul = $row['nama_website'] . " - Lihat Pembayaran";
+            require_once("../pembelian/lihat_pembayaran.php");
+            break;
+
         case 'logout':
             if (isset($_SESSION['status'])) {
                 unset($_SESSION['status']);
@@ -99,8 +139,19 @@ if (!isset($_GET['page'])) {
 if (!isset($_GET['aksi'])) {
 } else {
     switch ($_GET['aksi']) {
-        case 'value':
-            # code...
+        case 'checkout':
+            $payment->setCheckout();
+            break;
+
+        case 'bayar':
+            $payment->bukti();
+            break;
+
+        case 'hapus':
+            $id_produk = $_GET["id"];
+            unset($_SESSION["keranjang"][$id_produk]);
+            echo "<script>alert('Produk Telah Dihapus');</script>";
+            echo "<script>location='?page=keranjang';</script>";
             break;
 
         default:

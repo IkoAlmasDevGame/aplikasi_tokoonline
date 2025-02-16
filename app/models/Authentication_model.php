@@ -73,9 +73,9 @@ class Authentication_model
                 $responsed[$this->table2] = $response;
                 if ($row = $pelanggan->fetch_assoc()):
                     if ($akses == "pelanggan"):
-                        $_SESSION['pelanggan'] = $row['id_pelanggan '];
+                        $_SESSION['id_pelanggan'] = $row['id_pelanggan'];
                         $_SESSION['pelanggan_email'] = $row['email_pelanggan'];
-                        $_SESSION['pelanggan_nama'] = $row['nama_pelanggan'];
+                        $_SESSION['nama_pelanggan'] = $row['nama_pelanggan'];
                         $_SESSION['telepon'] = $row['telepon'];
                         $_SESSION['alamat'] = $row['alamat_pelanggan'];
                         $_SESSION['akses'] = "pelanggan";

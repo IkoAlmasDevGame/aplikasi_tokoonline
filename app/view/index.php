@@ -18,19 +18,19 @@
       <?php require_once("../controllers/Authentication.php"); ?>
       <?php $auth = new controller\Authentication($koneksi); ?>
       <?php
-    if (!isset($_GET['aksi'])):
-    else:
-        switch ($_GET['aksi']) {
-            case 'login':
-                $auth->Login();
-                break;
+   if (!isset($_GET['aksi'])):
+   else:
+      switch ($_GET['aksi']) {
+         case 'login':
+            $auth->Login();
+            break;
 
-            default:
-                require_once("../controllers/Authentication.php");
-                break;
-        }
-    endif;
-    ?>
+         default:
+            require_once("../controllers/Authentication.php");
+            break;
+      }
+   endif;
+   ?>
       <!-- Authentication Finish -->
       <!-- Style CSS start -->
       <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
@@ -49,7 +49,7 @@
       <header class="header">
          <nav class="navbar navbar-expand-lg position-sticky bg-body-tertiary">
             <div class="header-nav container-fluid">
-               <a href="<?= URL_BASE ?>/index<?= ".php" ?>" class="navbar-brand">
+               <a href="<?= URL_BASE ?>index<?= ".php" ?>" class="navbar-brand">
                   <img src="<?= BASE_URL ?>assets/foto_icon/<?= $website['foto_icon'] ?>" width="60" height="60"
                      alt="<?php echo $website['nama_website'] ?>">
                   <?php echo $website['nama_website'] ?>
@@ -62,7 +62,7 @@
                <div class="collapse navbar-collapse" id="navbarSupportedContent">
                   <ul class="navbar-nav ms-auto mb-2 mb-lg-2">
                      <li class="nav-item btn btn-outline-danger mx-1">
-                        <a href="<?= URL_BASE ?>/index<?= ".php" ?>" aria-current="page" class="nav-link">
+                        <a href="<?= URL_BASE ?>index<?= ".php" ?>" aria-current="page" class="nav-link">
                            <div class="fs-5 fw-normal fst-normal display-5
                                     d-flex align-items-center justify-content-center">
                               <i class="fa fa-house-user fa-1x mx-1"></i>
@@ -71,7 +71,7 @@
                         </a>
                      </li>
                      <li class="nav-item btn btn-outline-info mx-1">
-                        <a href="<?= URL_BASE ?>/regist<?= ".php" ?>" aria-current="page" class="nav-link">
+                        <a href="<?= URL_BASE ?>regist<?= ".php" ?>" aria-current="page" class="nav-link">
                            <div class="fs-5 fw-normal fst-normal display-5 
                                     d-flex align-items-center justify-content-center">
                               <i class="fa fa-registered fa-1x mx-1"></i>
